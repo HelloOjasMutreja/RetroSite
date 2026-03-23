@@ -1,13 +1,12 @@
 # RetroSite
 
-A retro-themed website starter.
+Next.js 14 App Router scaffold for an arcade-themed site.
 
-## Files
+## Getting Started
 
-- `index.html` - Main page
-- `styles.css` - Retro styling
-- `script.js` - Interactions
+```bash
+npm install
+npm run dev
+```
 
-## Run
-
-Open `index.html` in your browser.
+Open `http://localhost:3000`.
