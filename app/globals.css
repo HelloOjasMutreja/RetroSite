@@ -61,3 +61,13 @@ body.glitch-scanline::after {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* Proceed button subtle pulse */
+.proceed-pulse {
+  animation: proceed-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes proceed-glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.15); }
+}

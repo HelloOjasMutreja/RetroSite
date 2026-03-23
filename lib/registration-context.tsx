@@ -36,6 +36,8 @@ interface RegistrationContextValue {
   setStage: (stage: RegistrationStage) => void;
   updateData: (patch: Partial<RegistrationData>) => void;
   updateLeader: (patch: Partial<Player>) => void;
+  addPlayer: (player: Player) => void;
+  resetPlayers: () => void;
 }
 
 const DEFAULT_DATA: RegistrationData = {
@@ -67,9 +69,20 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  const addPlayer = useCallback((player: Player) => {
+    setData((prev) => ({
+      ...prev,
+      players: [...prev.players, player],
+    }));
+  }, []);
+
+  const resetPlayers = useCallback(() => {
+    setData((prev) => ({ ...prev, players: [] }));
+  }, []);
+
   const value = useMemo(
-    () => ({ data, stage, setStage, updateData, updateLeader }),
-    [data, stage, setStage, updateData, updateLeader]
+    () => ({ data, stage, setStage, updateData, updateLeader, addPlayer, resetPlayers }),
+    [data, stage, setStage, updateData, updateLeader, addPlayer, resetPlayers]
   );
 
   return (
