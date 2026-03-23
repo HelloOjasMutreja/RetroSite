@@ -31,5 +31,5 @@ body::after {
     transparent 1px,
     transparent 2px
   );
-  z-index: 2147483647;
+  z-index: 9998;
 }

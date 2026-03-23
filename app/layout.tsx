@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CursorProvider } from "@/components/arcade/CustomCursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-arcade-dark text-white antialiased">{children}</body>
+      <body className="bg-arcade-dark text-white antialiased">
+        <CursorProvider>{children}</CursorProvider>
+      </body>
     </html>
   );
 }
