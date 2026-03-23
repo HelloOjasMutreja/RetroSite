@@ -51,3 +51,13 @@ body.glitch-scanline::after {
 .glitch-rgb {
   text-shadow: -3px 0 #ff2d78, 3px 0 #00e5ff;
 }
+
+/* Blinking block cursor for retro inputs */
+.blink-cursor {
+  animation: blink-block 1s step-end infinite;
+}
+
+@keyframes blink-block {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

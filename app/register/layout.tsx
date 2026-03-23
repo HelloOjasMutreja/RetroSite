@@ -4,12 +4,17 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { FloatingWorld } from "@/components/ui/FloatingWorld";
 import { ProgressBar } from "@/components/register/ProgressBar";
+import {
+  RegistrationProvider,
+  useRegistration,
+} from "@/lib/registration-context";
 
-export default function RegisterLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/* ------------------------------------------------------------------ */
+/*  Inner layout that consumes the registration context                */
+/* ------------------------------------------------------------------ */
+
+function RegisterLayoutInner({ children }: { children: React.ReactNode }) {
+  const { stage } = useRegistration();
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Entry animation — content fades/slides in after the flash transition
@@ -29,7 +34,7 @@ export default function RegisterLayout({
       <FloatingWorld />
 
       {/* Progress bar — fixed at top */}
-      <ProgressBar currentStage={1} />
+      <ProgressBar currentStage={stage} />
 
       {/* Main content — centered, clears progress bar */}
       <div
@@ -51,5 +56,21 @@ export default function RegisterLayout({
         {children}
       </div>
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Root register layout — wraps with provider                         */
+/* ------------------------------------------------------------------ */
+
+export default function RegisterLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <RegistrationProvider>
+      <RegisterLayoutInner>{children}</RegisterLayoutInner>
+    </RegistrationProvider>
   );
 }
