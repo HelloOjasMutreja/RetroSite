@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CursorProvider } from "@/components/arcade/CustomCursor";
 import "./globals.css";
+import { GlitchInitializer } from "@/components/arcade/GlitchInitializer";
 
 export const metadata: Metadata = {
   title: "RetroSite",
@@ -15,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-arcade-dark text-white antialiased">
-        <CursorProvider>{children}</CursorProvider>
+        <CursorProvider>
+          <GlitchInitializer />
+          {children}
+        </CursorProvider>
       </body>
     </html>
   );

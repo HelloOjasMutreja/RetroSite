@@ -1,3 +1,15 @@
+"use client";
+
+import { useEffect } from "react";
+import { GlitchController } from "@/lib/glitch";
+
 export function useGlitch() {
-  return null;
+  useEffect(() => {
+    const controller = new GlitchController();
+    controller.start();
+
+    return () => {
+      controller.stop();
+    };
+  }, []);
 }

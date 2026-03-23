@@ -33,3 +33,21 @@ body::after {
   );
   z-index: 9998;
 }
+
+body.glitch-hue {
+  filter: hue-rotate(120deg);
+}
+
+body.glitch-scanline::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0,
+    rgba(0, 0, 0, 0.08) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+.glitch-rgb {
+  text-shadow: -3px 0 #ff2d78, 3px 0 #00e5ff;
+}
