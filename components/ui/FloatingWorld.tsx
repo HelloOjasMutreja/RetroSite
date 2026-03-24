@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { FloatingObject, type FloatingObjectType, type DepthLayer } from "./FloatingObject";
 
@@ -25,14 +25,20 @@ function randomRange(min: number, max: number) {
   return min + Math.random() * (max - min);
 }
 
-function buildSpawnList(): SpawnedObject[] {
+function buildSpawnList(isMobile: boolean): SpawnedObject[] {
   const objects: SpawnedObject[] = [];
 
-  const layers: { depth: DepthLayer; count: number }[] = [
-    { depth: "far", count: 6 },
-    { depth: "mid", count: 7 },
-    { depth: "near", count: 5 },
-  ];
+  const layers: { depth: DepthLayer; count: number }[] = isMobile
+    ? [
+        { depth: "far", count: 3 },
+        { depth: "mid", count: 3 },
+        { depth: "near", count: 2 },
+      ]
+    : [
+        { depth: "far", count: 6 },
+        { depth: "mid", count: 7 },
+        { depth: "near", count: 5 },
+      ];
 
   for (const { depth, count } of layers) {
     for (let i = 0; i < count; i++) {
@@ -82,7 +88,22 @@ function FloatingScene({ objects }: { objects: SpawnedObject[] }) {
 /* ------------------------------------------------------------------ */
 
 export function FloatingWorld() {
-  const objects = useMemo(() => buildSpawnList(), []);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    update();
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  const objects = useMemo(() => buildSpawnList(isMobile), [isMobile]);
 
   return (
     <div

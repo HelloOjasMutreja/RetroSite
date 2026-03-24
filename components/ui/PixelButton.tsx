@@ -1,6 +1,7 @@
 "use client";
 
 import { useCursor } from "@/components/arcade/CustomCursor";
+import { playBlip, playCoin } from "@/lib/sounds";
 import { type ReactNode, useCallback, useRef, useState } from "react";
 
 interface PixelButtonProps {
@@ -24,6 +25,7 @@ export function PixelButton({
 
   const handleMouseEnter = useCallback(() => {
     setCursorState("pointer");
+    playBlip();
   }, [setCursorState]);
 
   const handleMouseLeave = useCallback(() => {
@@ -31,11 +33,16 @@ export function PixelButton({
     setPressed(false);
   }, [setCursorState]);
 
+  const handleClick = useCallback(() => {
+    playCoin();
+    onClick?.();
+  }, [onClick]);
+
   return (
     <button
       ref={btnRef}
       className={className}
-      onClick={onClick}
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseDown={() => setPressed(true)}
